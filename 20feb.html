@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student ID Cards</title>
+</head>
+<body style="margin:0; font-family:Arial; background:linear-gradient(120deg,#1f1c2c,#928dab);">
+
+<h1 style="text-align:center; color:white; padding:20px;">🎓 Student ID Cards</h1>
+
+<div id="app" style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap;"></div>
+
+<script>
+// Student Data
+const students = [
+    {
+        name: "Aisha Khan",
+        course: "Computer Science",
+        year: "3rd Year",
+        image: "https://i.pravatar.cc/150?img=5"
+    },
+    {
+        name: "Rahul Sharma",
+        course: "Information Technology",
+        year: "2nd Year",
+        image: "https://i.pravatar.cc/150?img=12"
+    },
+    {
+        name: "Zara Ali",
+        course: "Artificial Intelligence",
+        year: "4th Year",
+        image: "https://i.pravatar.cc/150?img=20"
+    }
+];
+
+// Function to create card
+function createCard(student) {
+    return `
+    <div style="
+        width:260px;
+        padding:20px;
+        border-radius:15px;
+        background:rgba(255,255,255,0.1);
+        backdrop-filter: blur(10px);
+        box-shadow:0 8px 20px rgba(0,0,0,0.3);
+        text-align:center;
+        color:white;
+        transition:0.3s;
+    "
+    onmouseover="this.style.transform='scale(1.05)'"
+    onmouseout="this.style.transform='scale(1)'"
+    >
+        <img src="${student.image}" style="
+            width:100px;
+            height:100px;
+            border-radius:50%;
+            border:3px solid white;
+            margin-bottom:10px;
+        ">
+
+        <h2 style="margin:10px 0;">${student.name}</h2>
+
+        <p style="margin:5px;"><b>Course:</b> ${student.course}</p>
+        <p style="margin:5px;"><b>Year:</b> ${student.year}</p>
+
+        <div style="
+            margin-top:10px;
+            padding:5px;
+            background:white;
+            color:black;
+            border-radius:5px;
+            font-size:12px;
+        ">
+            ID: STU${Math.floor(Math.random()*10000)}
+        </div>
+    </div>
+    `;
+}
+
+// Render cards
+const app = document.getElementById("app");
+students.forEach(student => {
+    app.innerHTML += createCard(student);
+});
+</script>
+
+</body>
+</html>

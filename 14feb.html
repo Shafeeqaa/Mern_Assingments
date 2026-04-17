@@ -1,0 +1,27 @@
+function numberAnalyzer(num) {
+
+    // 1. Check Even or Odd
+    if (num % 2 === 0) {
+        console.log(num + " is Even");
+    } else {
+        console.log(num + " is Odd");
+    }
+
+    console.log("Numbers from 1 to 10:");
+    
+    // 2. Print numbers from 1 to that number
+console.log("\nNumbers from 1 to " + num + ":");
+for (let i = 1; i <= num; i++) {
+    console.log(i);
+}
+
+    console.log("Squares from 1 to 10:");
+    
+    // 3. Print squares
+    for (let i = 1; i <= 10; i++) {
+        console.log(i + "² = " + (i * i));
+    }
+}
+
+// Call function
+numberAnalyzer(7);

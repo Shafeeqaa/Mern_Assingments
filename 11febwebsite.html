@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unique Website</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+    }
+
+    header h1 {
+      color: #38bdf8;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #fff;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #38bdf8;
+    }
+
+    section {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .home {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .home h2 {
+      font-size: 3rem;
+      background: linear-gradient(90deg, #38bdf8, #f472b6);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .home p {
+      margin-top: 20px;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      margin-top: 30px;
+      padding: 12px 25px;
+      border: none;
+      background: #38bdf8;
+      color: #000;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #0ea5e9;
+    }
+
+    .about {
+      background: #020617;
+    }
+
+    .about-container {
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.8;
+    }
+
+    .contact form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #000;
+    }
+
+    /* Responsive */
+    @media(max-width: 768px) {
+      header {
+        flex-direction: column;
+      }
+
+      .home h2 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>✨ MyBrand</h1>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section id="home" class="home">
+  <h2>Welcome to the Future</h2>
+  <p>This is a modern, unique and stylish responsive website built using pure HTML and CSS. It has a clean UI with a futuristic vibe.</p>
+  <button class="btn">Explore More</button>
+</section>
+
+<section id="about" class="about">
+  <h2>About Us</h2>
+  <div class="about-container">
+    <p>We create innovative and modern web experiences that are both visually stunning and highly functional. Our goal is to deliver designs that stand out and provide seamless user experiences across all devices.</p>
+    <p>This website is fully responsive and adapts beautifully to mobile, tablet, and desktop screens. It showcases clean design principles, smooth layout, and a premium look.</p>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact Us</h2>
+  <form>
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea rows="5" placeholder="Your Message" required></textarea>
+    <button class="btn">Send Message</button>
+  </form>
+</section>
+
+<footer>
+  <p>© 2026 MyBrand | Designed with ❤️</p>
+</footer>
+
+</body>
+</html>
