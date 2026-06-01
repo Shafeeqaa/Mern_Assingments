@@ -1,0 +1,59 @@
+Folder
+task-api/
+ └── server.js
+Install
+npm init -y
+npm install express
+server.js
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
+let tasks = [];
+
+// Create task
+app.post("/tasks", (req, res) => {
+  const task = {
+    id: Date.now(),
+    title: req.body.title
+  };
+
+  tasks.push(task);
+  res.json(task);
+});
+
+// Get all tasks
+app.get("/tasks", (req, res) => {
+  res.json(tasks);
+});
+
+// Get single task
+app.get("/tasks/:id", (req, res) => {
+  const task = tasks.find(t => t.id == req.params.id);
+  res.json(task || { message: "Task not found" });
+});
+
+// Update task
+app.put("/tasks/:id", (req, res) => {
+  const task = tasks.find(t => t.id == req.params.id);
+
+  if (!task) {
+    return res.json({ message: "Task not found" });
+  }
+
+  task.title = req.body.title;
+  res.json(task);
+});
+
+// Delete task
+app.delete("/tasks/:id", (req, res) => {
+  tasks = tasks.filter(t => t.id != req.params.id);
+  res.json({ message: "Task deleted" });
+});
+
+app.listen(3000, () => {
+  console.log("Task API running on http://localhost:3000");
+});
+Run
+node server.js
