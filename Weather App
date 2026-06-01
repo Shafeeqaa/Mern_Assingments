@@ -1,0 +1,57 @@
+Weather App
+src/App.jsx
+import React, { useState } from "react";
+
+export default function App() {
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState(null);
+  const [error, setError] = useState("");
+
+  const API_KEY = "YOUR_API_KEY_HERE";
+
+  const getWeather = async () => {
+    try {
+      const res = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+      );
+
+      const data = await res.json();
+
+      if (data.cod === "404") {
+        setError("City not found");
+        setWeather(null);
+      } else {
+        setWeather(data);
+        setError("");
+      }
+    } catch {
+      setError("Something went wrong");
+    }
+  };
+
+  return (
+    <div style={{ padding: "30px" }}>
+      <h2>Weather App</h2>
+
+      <input
+        type="text"
+        placeholder="Enter city"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+      />
+
+      <button onClick={getWeather}>Search</button>
+
+      {error && <p>{error}</p>}
+
+      {weather && (
+        <div>
+          <h3>{weather.name}</h3>
+          <p>Temperature: {weather.main.temp}°C</p>
+          <p>Weather: {weather.weather[0].description}</p>
+          <p>Humidity: {weather.main.humidity}%</p>
+        </div>
+      )}
+    </div>
+  );
+}
