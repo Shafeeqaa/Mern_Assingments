@@ -1,0 +1,94 @@
+Smart Signup Form
+src/App.jsx
+import React, { useState } from "react";
+
+export default function App() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState("");
+
+  const validate = () => {
+    let err = {};
+
+    if (!form.name) err.name = "Name is required";
+
+    if (!form.email) {
+      err.email = "Email is required";
+    } else if (!form.email.includes("@")) {
+      err.email = "Invalid email";
+    }
+
+    if (!form.password) {
+      err.password = "Password is required";
+    } else if (form.password.length < 8) {
+      err.password = "Password must be 8 characters";
+    }
+
+    if (form.password !== form.confirmPassword) {
+      err.confirmPassword = "Passwords do not match";
+    }
+
+    return err;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const result = validate();
+    setErrors(result);
+
+    if (Object.keys(result).length === 0) {
+      setSuccess("Signup successful!");
+    } else {
+      setSuccess("");
+    }
+  };
+
+  return (
+    <div style={{ padding: "30px" }}>
+      <h2>Smart Signup Form</h2>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Enter name"
+          onChange={(e) => setForm({ ...form, name: e.target.value })}
+        />
+        <p>{errors.name}</p>
+
+        <input
+          type="email"
+          placeholder="Enter email"
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
+        <p>{errors.email}</p>
+
+        <input
+          type="password"
+          placeholder="Enter password"
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        />
+        <p>{errors.password}</p>
+
+        <input
+          type="password"
+          placeholder="Confirm password"
+          onChange={(e) =>
+            setForm({ ...form, confirmPassword: e.target.value })
+          }
+        />
+        <p>{errors.confirmPassword}</p>
+
+        <button type="submit">Signup</button>
+      </form>
+
+      <h3>{success}</h3>
+    </div>
+  );
+}
