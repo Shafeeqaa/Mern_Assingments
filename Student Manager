@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Manager</title>
+
+<style>
+body{
+font-family: Arial;
+background: linear-gradient(to right,#4facfe,#00f2fe);
+text-align:center;
+margin-top:40px;
+}
+.container{
+background:white;
+width:500px;
+margin:auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px gray;
+}
+input{
+padding:8px;
+margin:5px;
+width:80%;
+}
+button{
+padding:10px 15px;
+background:#007bff;
+color:white;
+border:none;
+cursor:pointer;
+}
+table{
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+}
+th,td{
+border:1px solid #ccc;
+padding:8px;
+}
+th{
+background:#007bff;
+color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Student Manager</h1>
+
+<input type="text" id="name" placeholder="Student Name"><br>
+<input type="number" id="math" placeholder="Math Marks"><br>
+<input type="number" id="science" placeholder="Science Marks"><br>
+<input type="number" id="english" placeholder="English Marks"><br>
+
+<button onclick="addStudent()">Add Student</button>
+
+<h2>Student Records</h2>
+
+<table id="studentTable">
+<tr>
+<th>Name</th>
+<th>Math</th>
+<th>Science</th>
+<th>English</th>
+<th>Average</th>
+</tr>
+</table>
+</div>
+
+<script>
+let students = [];
+
+function addStudent(){
+let name = document.getElementById("name").value;
+let math = Number(document.getElementById("math").value);
+let science = Number(document.getElementById("science").value);
+let english = Number(document.getElementById("english").value);
+
+if(name === "" || math === 0 || science === 0 || english === 0){
+alert("Please enter all fields");
+return;
+}
+
+let average = ((math + science + english) / 3).toFixed(2);
+
+let student = {
+name:name,
+math:math,
+science:science,
+english:english,
+average:average
+};
+
+students.push(student);
+displayStudents();
+clearFields();
+}
+
+function displayStudents(){
+let table = document.getElementById("studentTable");
+
+table.innerHTML = `
+<tr>
+<th>Name</th>
+<th>Math</th>
+<th>Science</th>
+<th>English</th>
+<th>Average</th>
+</tr>
+`;
+
+students.forEach(function(s){
+table.innerHTML += `
+<tr>
+<td>${s.name}</td>
+<td>${s.math}</td>
+<td>${s.science}</td>
+<td>${s.english}</td>
+<td>${s.average}</td>
+</tr>
+`;
+});
+}
+
+function clearFields(){
+document.getElementById("name").value="";
+document.getElementById("math").value="";
+document.getElementById("science").value="";
+document.getElementById("english").value="";
+}
+</script>
+
+</body>
+</html>
