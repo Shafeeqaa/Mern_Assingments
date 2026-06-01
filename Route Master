@@ -1,0 +1,54 @@
+server.js
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
+const bookRoutes = require("./routes/books");
+const authorRoutes = require("./routes/authors");
+
+app.use("/books", bookRoutes);
+app.use("/authors", authorRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Bookstore API is running");
+});
+
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
+});
+routes/books.js
+const express = require("express");
+const router = express.Router();
+
+const books = [
+  { id: 1, title: "Atomic Habits" },
+  { id: 2, title: "Harry Potter" }
+];
+
+router.get("/", (req, res) => {
+  res.json(books);
+});
+
+router.get("/:id", (req, res) => {
+  const book = books.find(b => b.id == req.params.id);
+  res.json(book || { message: "Book not found" });
+});
+
+module.exports = router;
+routes/authors.js
+const express = require("express");
+const router = express.Router();
+
+const authors = [
+  { id: 1, name: "James Clear" },
+  { id: 2, name: "J.K. Rowling" }
+];
+
+router.get("/", (req, res) => {
+  res.json(authors);
+});
+
+module.exports = router;
+Run
+node server.js
