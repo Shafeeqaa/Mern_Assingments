@@ -1,0 +1,98 @@
+MVC Refactor — Task API
+Folder
+mvc-task-api/
+ ├── server.js
+ ├── routes/
+ │    └── taskRoutes.js
+ ├── controllers/
+ │    └── taskController.js
+ └── models/
+      └── taskModel.js
+Install
+npm init -y
+npm install express
+server.js
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
+const taskRoutes = require("./routes/taskRoutes");
+
+app.use("/tasks", taskRoutes);
+
+app.listen(3000, () => {
+  console.log("MVC Task API running on http://localhost:3000");
+});
+models/taskModel.js
+let tasks = [];
+
+module.exports = {
+  getAllTasks: () => tasks,
+
+  createTask: (task) => {
+    tasks.push(task);
+    return task;
+  },
+
+  findTaskById: (id) => {
+    return tasks.find(t => t.id == id);
+  },
+
+  updateTask: (id, title) => {
+    const task = tasks.find(t => t.id == id);
+    if (task) {
+      task.title = title;
+    }
+    return task;
+  },
+
+  deleteTask: (id) => {
+    tasks = tasks.filter(t => t.id != id);
+  }
+};
+controllers/taskController.js
+const Task = require("../models/taskModel");
+
+exports.getTasks = (req, res) => {
+  res.json(Task.getAllTasks());
+};
+
+exports.createTask = (req, res) => {
+  const task = {
+    id: Date.now(),
+    title: req.body.title
+  };
+
+  const newTask = Task.createTask(task);
+  res.json(newTask);
+};
+
+exports.updateTask = (req, res) => {
+  const task = Task.updateTask(req.params.id, req.body.title);
+
+  if (!task) {
+    return res.json({ message: "Task not found" });
+  }
+
+  res.json(task);
+};
+
+exports.deleteTask = (req, res) => {
+  Task.deleteTask(req.params.id);
+  res.json({ message: "Task deleted" });
+};
+routes/taskRoutes.js
+const express = require("express");
+const router = express.Router();
+
+const taskController = require("../controllers/taskController");
+
+router.get("/", taskController.getTasks);
+router.post("/", taskController.createTask);
+router.put("/:id", taskController.updateTask);
+router.delete("/:id", taskController.deleteTask);
+
+module.exports = router;
+Run
+node server.js
